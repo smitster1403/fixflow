@@ -3,7 +3,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { createClient } from "@/lib/supabase/server";
 
-import { resend } from "@/lib/resend";
+import { sendEmail } from "@/lib/resend";
 import { tenantWelcomeEmail } from "@/lib/emails/tenant-welcome";
 
 async function getLandlordId() {
@@ -342,8 +342,7 @@ export async function updateUnitTenant(unitId: string, formData: FormData) {
         portalUrl,
       });
 
-      const { error: emailError } = await resend.emails.send({
-        from: process.env.RESEND_FROM_EMAIL ?? "FixFlow <onboarding@resend.dev>",
+      const { error: emailError } = await sendEmail({
         to: tenantEmail,
         subject: emailContent.subject,
         html: emailContent.html,
@@ -392,15 +391,14 @@ export async function sendPortalLink(unitId: string) {
       portalUrl,
     });
 
-    const { error: emailError } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL ?? "FixFlow <onboarding@resend.dev>",
+    const { error: emailError } = await sendEmail({
       to: tenantEmail,
       subject: emailContent.subject,
       html: emailContent.html,
     });
 
     if (emailError) {
-      return { error: `Email failed: ${emailError.message}` };
+      return { error: `Email failed: ${emailError}` };
     }
 
     return { success: true };
