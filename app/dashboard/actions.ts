@@ -209,6 +209,57 @@ export async function getRequestStatusHistory(requestId: string) {
 // PROPERTIES
 // ============================================================
 
+export async function getPropertiesWithUnits() {
+  const landlordId = await ensureLandlord();
+  const supabase = await createClient();
+
+  const { data: properties } = await supabase
+    .from("properties")
+    .select("*, units(*)")
+    .eq("landlord_id", landlordId)
+    .order("created_at", { ascending: false });
+
+  if (!properties || properties.length === 0) return [];
+
+  // Count open requests per property in a single query
+  const propertyIds = properties.map((p) => p.id);
+
+  const { data: allUnits } = await supabase
+    .from("units")
+    .select("id, property_id")
+    .in("property_id", propertyIds);
+
+  const unitIds = allUnits?.map((u) => u.id) ?? [];
+  let openByProperty: Record<string, number> = {};
+
+  if (unitIds.length > 0) {
+    const { data: openRequests } = await supabase
+      .from("maintenance_requests")
+      .select("unit_id")
+      .in("unit_id", unitIds)
+      .in("status", ["open", "in_progress"]);
+
+    // Map unit_id -> property_id for counting
+    const unitToProperty: Record<string, string> = {};
+    for (const u of allUnits ?? []) {
+      unitToProperty[u.id] = u.property_id;
+    }
+
+    for (const req of openRequests ?? []) {
+      const propId = unitToProperty[req.unit_id];
+      if (propId) {
+        openByProperty[propId] = (openByProperty[propId] ?? 0) + 1;
+      }
+    }
+  }
+
+  return properties.map((property) => ({
+    ...property,
+    unitCount: (property.units as unknown[])?.length ?? 0,
+    openRequests: openByProperty[property.id] ?? 0,
+  }));
+}
+
 export async function getProperties() {
   const landlordId = await ensureLandlord();
   const supabase = await createClient();
