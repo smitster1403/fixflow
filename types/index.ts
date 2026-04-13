@@ -24,22 +24,15 @@ export interface Unit {
   id: string;
   propertyId: string;
   label: string; // e.g. "Apt 2B"
-  createdAt: string;
-}
-
-export interface Tenant {
-  id: string;
-  unitId: string;
-  name: string;
-  email: string;
-  phone?: string;
+  tenantName?: string;
+  tenantEmail?: string;
+  tenantPhone?: string;
   token: string; // unique link token for the public request portal
   createdAt: string;
 }
 
 export interface MaintenanceRequest {
   id: string;
-  tenantId: string;
   unitId: string;
   category: "plumbing" | "electrical" | "hvac" | "appliance" | "other";
   description: string;

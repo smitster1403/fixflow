@@ -6,7 +6,6 @@ import {
 } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
-import { SignInBtn, SignUpBtn } from "@/components/auth-buttons";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,20 +35,30 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ClerkProvider>
-          <nav className="sticky top-0 z-50 border-b border-border bg-surface/80 backdrop-blur-md">
-            <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-              <Link href="/" className="text-xl font-bold tracking-tight text-primary">
+          <nav className="sticky top-0 z-50 border-b border-border bg-background/60 backdrop-blur-xl">
+            <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
+              <Link href="/" className="text-base font-semibold tracking-tight text-foreground">
                 FixFlow
               </Link>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <Show when="signed-out">
-                  <SignInBtn className="rounded-lg px-4 py-2 text-sm font-medium text-foreground transition-colors hover:text-primary" />
-                  <SignUpBtn className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary-dark" />
+                  <Link
+                    href="/sign-in"
+                    className="rounded-lg px-3.5 py-1.5 text-sm font-medium text-muted transition-colors hover:text-foreground"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    href="/sign-up"
+                    className="rounded-lg bg-primary px-3.5 py-1.5 text-sm font-medium text-white transition-colors hover:bg-primary-dark"
+                  >
+                    Get started
+                  </Link>
                 </Show>
                 <Show when="signed-in">
                   <Link
                     href="/dashboard"
-                    className="rounded-lg px-4 py-2 text-sm font-medium text-foreground transition-colors hover:text-primary"
+                    className="rounded-lg px-3.5 py-1.5 text-sm font-medium text-muted transition-colors hover:text-foreground"
                   >
                     Dashboard
                   </Link>
