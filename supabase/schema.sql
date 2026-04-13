@@ -41,6 +41,7 @@ create table maintenance_requests (
   category text not null check (category in ('plumbing', 'electrical', 'hvac', 'appliance', 'other')),
   description text not null,
   status text not null default 'open' check (status in ('open', 'in_progress', 'resolved')),
+  note text,
   created_at timestamptz default now() not null,
   updated_at timestamptz default now() not null
 );

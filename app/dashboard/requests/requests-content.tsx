@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { updateRequestStatus } from "../actions";
+import { useState, useTransition, useEffect } from "react";
+import { updateRequestStatus, getRequestStatusHistory, saveRequestNote } from "../actions";
 
 const STATUS_OPTIONS = [
   { value: "open", label: "Open", color: "text-amber-400", bg: "bg-amber-400/10 border-amber-400/20", dot: "bg-amber-400" },
@@ -22,6 +22,7 @@ interface Request {
   category: string;
   description: string;
   status: string;
+  note: string | null;
   created_at: string;
   updated_at: string;
   units: { label: string; tenant_name: string | null; tenant_email: string | null; properties: { name: string } | null } | null;
@@ -34,7 +35,35 @@ export function RequestsContent({ requests: initialRequests }: { requests: Reque
   const [search, setSearch] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const [notes, setNotes] = useState<Record<string, string>>({});
+  const [notes, setNotes] = useState<Record<string, string>>(() => {
+    const initial: Record<string, string> = {};
+    for (const r of initialRequests) {
+      if (r.note) initial[r.id] = r.note;
+    }
+    return initial;
+  });
+  const [savedNotes, setSavedNotes] = useState<Record<string, string>>(() => {
+    const initial: Record<string, string> = {};
+    for (const r of initialRequests) {
+      if (r.note) initial[r.id] = r.note;
+    }
+    return initial;
+  });
+  const [savingNote, setSavingNote] = useState<string | null>(null);
+  const [history, setHistory] = useState<Record<string, { id: string; new_status: string; note: string | null; created_at: string }[]>>({});
+  const [loadingHistory, setLoadingHistory] = useState<string | null>(null);
+
+  // Fetch status history when a request is expanded
+  useEffect(() => {
+    if (!expandedId) return;
+    if (history[expandedId]) return; // already loaded
+
+    setLoadingHistory(expandedId);
+    getRequestStatusHistory(expandedId).then((data) => {
+      setHistory((prev) => ({ ...prev, [expandedId]: data }));
+      setLoadingHistory(null);
+    });
+  }, [expandedId]);
 
   const filtered = requests.filter((r) => {
     if (filter !== "all" && r.status !== filter) return false;
@@ -50,23 +79,34 @@ export function RequestsContent({ requests: initialRequests }: { requests: Reque
   });
 
   function handleStatusUpdate(requestId: string, newStatus: string) {
-    const requestNote = notes[requestId];
     startTransition(async () => {
-      const result = await updateRequestStatus(requestId, newStatus, requestNote || undefined);
+      const result = await updateRequestStatus(requestId, newStatus);
       if (result.success) {
         setRequests((prev) =>
           prev.map((r) =>
             r.id === requestId ? { ...r, status: newStatus, updated_at: new Date().toISOString() } : r
           )
         );
-        setNotes((prev) => {
-          const next = { ...prev };
-          delete next[requestId];
-          return next;
-        });
-        setExpandedId(null);
+        // Refresh the history for this request
+        const updatedHistory = await getRequestStatusHistory(requestId);
+        setHistory((prev) => ({ ...prev, [requestId]: updatedHistory }));
       }
     });
+  }
+
+  async function handleSaveNote(requestId: string) {
+    const noteText = notes[requestId] ?? "";
+    setSavingNote(requestId);
+    const result = await saveRequestNote(requestId, noteText);
+    if (result.success) {
+      setSavedNotes((prev) => ({ ...prev, [requestId]: noteText }));
+      setRequests((prev) =>
+        prev.map((r) =>
+          r.id === requestId ? { ...r, note: noteText || null } : r
+        )
+      );
+    }
+    setSavingNote(null);
   }
 
   const statusCounts = {
@@ -212,10 +252,68 @@ export function RequestsContent({ requests: initialRequests }: { requests: Reque
                       </div>
                     </div>
 
+                    {/* Status history / Notes */}
+                    <div className="border-t border-border pt-4">
+                      <h4 className="text-xs font-medium text-muted uppercase tracking-wide mb-3">History &amp; Notes</h4>
+                      {loadingHistory === request.id ? (
+                        <p className="text-xs text-muted">Loading history...</p>
+                      ) : (history[request.id] ?? []).length === 0 ? (
+                        <p className="text-xs text-muted">No status changes yet.</p>
+                      ) : (
+                        <div className="space-y-2 max-h-48 overflow-y-auto">
+                          {(history[request.id] ?? []).map((entry) => {
+                            const statusConf2 = STATUS_OPTIONS.find((s) => s.value === entry.new_status) ?? STATUS_OPTIONS[0];
+                            return (
+                              <div key={entry.id} className="flex gap-3 text-sm">
+                                <div className="flex flex-col items-center">
+                                  <span className={`h-2 w-2 rounded-full mt-1.5 ${statusConf2.dot}`} />
+                                  <span className="w-px flex-1 bg-border" />
+                                </div>
+                                <div className="pb-3 min-w-0 flex-1">
+                                  <div className="flex items-baseline gap-2">
+                                    <span className={`text-xs font-medium ${statusConf2.color}`}>{statusConf2.label}</span>
+                                    <time className="text-xs text-muted">
+                                      {new Date(entry.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" })}
+                                    </time>
+                                  </div>
+                                  {entry.note && (
+                                    <p className="mt-1 text-xs text-foreground/80 bg-surface rounded-md px-2.5 py-1.5 border border-border">
+                                      {entry.note}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Landlord note */}
+                    <div className="border-t border-border pt-4">
+                      <h4 className="text-xs font-medium text-muted uppercase tracking-wide mb-2">Note</h4>
+                      <textarea
+                        placeholder="Write a note about this request..."
+                        value={notes[request.id] ?? ""}
+                        onChange={(e) => setNotes((prev) => ({ ...prev, [request.id]: e.target.value }))}
+                        rows={2}
+                        className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm placeholder:text-muted/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary resize-none"
+                      />
+                      {(notes[request.id] ?? "") !== (savedNotes[request.id] ?? "") && (
+                        <button
+                          onClick={() => handleSaveNote(request.id)}
+                          disabled={savingNote === request.id}
+                          className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-primary/80 disabled:opacity-40"
+                        >
+                          {savingNote === request.id ? "Saving..." : "Save Note"}
+                        </button>
+                      )}
+                    </div>
+
                     {/* Status update */}
                     <div className="border-t border-border pt-4">
                       <h4 className="text-xs font-medium text-muted uppercase tracking-wide mb-3">Update Status</h4>
-                      <div className="flex flex-wrap gap-2 mb-3">
+                      <div className="flex flex-wrap gap-2">
                         {STATUS_OPTIONS.filter((s) => s.value !== request.status).map((s) => (
                           <button
                             key={s.value}
@@ -228,13 +326,6 @@ export function RequestsContent({ requests: initialRequests }: { requests: Reque
                           </button>
                         ))}
                       </div>
-                      <textarea
-                        placeholder="Add a note (optional)..."
-                        value={notes[request.id] ?? ""}
-                        onChange={(e) => setNotes((prev) => ({ ...prev, [request.id]: e.target.value }))}
-                        rows={2}
-                        className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm placeholder:text-muted/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary resize-none"
-                      />
                     </div>
                   </div>
                 )}

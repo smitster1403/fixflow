@@ -165,6 +165,34 @@ export async function updateRequestStatus(
   return { success: true };
 }
 
+export async function saveRequestNote(requestId: string, note: string) {
+  const landlordId = await ensureLandlord();
+  const supabase = await createClient();
+
+  // Verify this request belongs to the landlord
+  const { data: request } = await supabase
+    .from("maintenance_requests")
+    .select("unit_id, units(property_id, properties(landlord_id))")
+    .eq("id", requestId)
+    .single();
+
+  if (!request) return { error: "Request not found" };
+
+  const prop = (request as Record<string, unknown>).units as Record<string, unknown> | null;
+  const propData = prop?.properties as Record<string, unknown> | null;
+  if (propData?.landlord_id !== landlordId) {
+    return { error: "Unauthorized" };
+  }
+
+  const { error } = await supabase
+    .from("maintenance_requests")
+    .update({ note: note.trim() || null })
+    .eq("id", requestId);
+
+  if (error) return { error: "Failed to save note" };
+  return { success: true };
+}
+
 export async function getRequestStatusHistory(requestId: string) {
   const supabase = await createClient();
 
