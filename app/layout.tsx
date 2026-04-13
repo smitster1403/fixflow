@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next"
 import {
   ClerkProvider,
 } from "@clerk/nextjs";
@@ -35,6 +36,7 @@ export default function RootLayout({
         <ClerkProvider>
           <Navbar />
           <main className="flex flex-1 flex-col">{children}</main>
+          <Analytics/>
         </ClerkProvider>
       </body>
     </html>

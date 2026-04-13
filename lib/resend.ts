@@ -1,12 +1,20 @@
 import nodemailer from "nodemailer";
+import type { Transporter } from "nodemailer";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
+let transporter: Transporter;
+
+function getTransporter() {
+  if (!transporter) {
+    transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD,
+      },
+    });
+  }
+  return transporter;
+}
 
 export async function sendEmail({
   to,
@@ -18,7 +26,7 @@ export async function sendEmail({
   html: string;
 }): Promise<{ error?: string }> {
   try {
-    await transporter.sendMail({
+    await getTransporter().sendMail({
       from: `FixFlow <${process.env.GMAIL_USER}>`,
       to,
       subject,
