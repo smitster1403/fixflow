@@ -79,11 +79,18 @@ export function tenantWelcomeEmail({
 
           <!-- Footer -->
           <tr>
-            <td style="padding-top:24px;text-align:center;">
-              <p style="margin:0 0 4px;font-size:12px;color:#a1a1aa;">
-                Bookmark the link above — it's your personal portal.
-              </p>
-              <p style="margin:0;font-size:11px;color:#52525b;">
+            <td style="padding-top:24px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#18181b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:16px;margin-bottom:16px;">
+                <tr>
+                  <td style="padding:12px 16px;">
+                    <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#facc15;">⚠ Important — Save this email</p>
+                    <p style="margin:0;font-size:12px;line-height:1.5;color:#a1a1aa;">
+                      This email contains your personal maintenance portal link. Please star or save it for future use — you'll need it whenever you want to submit or check on a repair request.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+              <p style="margin:0;text-align:center;font-size:11px;color:#52525b;">
                 Powered by FixFlow
               </p>
             </td>
