@@ -34,7 +34,7 @@ export function RequestsContent({ requests: initialRequests }: { requests: Reque
   const [search, setSearch] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const [note, setNote] = useState("");
+  const [notes, setNotes] = useState<Record<string, string>>({});
 
   const filtered = requests.filter((r) => {
     if (filter !== "all" && r.status !== filter) return false;
@@ -50,15 +50,20 @@ export function RequestsContent({ requests: initialRequests }: { requests: Reque
   });
 
   function handleStatusUpdate(requestId: string, newStatus: string) {
+    const requestNote = notes[requestId];
     startTransition(async () => {
-      const result = await updateRequestStatus(requestId, newStatus, note || undefined);
+      const result = await updateRequestStatus(requestId, newStatus, requestNote || undefined);
       if (result.success) {
         setRequests((prev) =>
           prev.map((r) =>
             r.id === requestId ? { ...r, status: newStatus, updated_at: new Date().toISOString() } : r
           )
         );
-        setNote("");
+        setNotes((prev) => {
+          const next = { ...prev };
+          delete next[requestId];
+          return next;
+        });
         setExpandedId(null);
       }
     });
@@ -225,8 +230,8 @@ export function RequestsContent({ requests: initialRequests }: { requests: Reque
                       </div>
                       <textarea
                         placeholder="Add a note (optional)..."
-                        value={expandedId === request.id ? note : ""}
-                        onChange={(e) => setNote(e.target.value)}
+                        value={notes[request.id] ?? ""}
+                        onChange={(e) => setNotes((prev) => ({ ...prev, [request.id]: e.target.value }))}
                         rows={2}
                         className="w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm placeholder:text-muted/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary resize-none"
                       />
