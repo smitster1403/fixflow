@@ -27,7 +27,7 @@ export async function sendEmail({
 }): Promise<{ error?: string }> {
   try {
     await getTransporter().sendMail({
-      from: `FixFlow <${process.env.GMAIL_USER}>`,
+      from: `Sevara <${process.env.GMAIL_USER}>`,
       to,
       subject,
       html,

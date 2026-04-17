@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FixFlow",
+  title: "Sevara",
   description: "Tenant maintenance request tracker for small landlords",
 };
 

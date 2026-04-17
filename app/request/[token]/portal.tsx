@@ -74,7 +74,7 @@ export function TenantPortal({
         <div className="mx-auto max-w-2xl px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-lg font-semibold tracking-tight">FixFlow</h1>
+              <h1 className="text-lg font-semibold tracking-tight">Sevara</h1>
               <p className="text-xs text-muted mt-0.5">Maintenance Portal</p>
             </div>
             <div className="text-right">
@@ -308,7 +308,7 @@ export function TenantPortal({
       {/* Footer */}
       <footer className="mt-auto border-t border-border py-4">
         <p className="text-center text-xs text-muted">
-          Powered by <span className="font-medium text-foreground">FixFlow</span>
+          Powered by <span className="font-medium text-foreground">Sevara</span>
         </p>
       </footer>
     </div>

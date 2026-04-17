@@ -26,7 +26,7 @@ export function tenantWelcomeEmail({
           <!-- Header -->
           <tr>
             <td style="padding-bottom:32px;">
-              <span style="font-size:18px;font-weight:600;color:#fafafa;letter-spacing:-0.02em;">FixFlow</span>
+              <span style="font-size:18px;font-weight:600;color:#fafafa;letter-spacing:-0.02em;">Sevara</span>
             </td>
           </tr>
 
@@ -91,7 +91,7 @@ export function tenantWelcomeEmail({
                 </tr>
               </table>
               <p style="margin:0;text-align:center;font-size:11px;color:#52525b;">
-                Powered by FixFlow
+                Powered by Sevara
               </p>
             </td>
           </tr>

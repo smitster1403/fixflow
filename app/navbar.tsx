@@ -14,7 +14,7 @@ export function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-border bg-background/60 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="text-base font-semibold tracking-tight text-foreground">
-          FixFlow
+          Sevara
         </Link>
         <div className="flex items-center gap-2">
           <Show when="signed-out">

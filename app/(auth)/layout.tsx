@@ -42,7 +42,7 @@ export default function AuthLayout({
 
           <div className="mt-16">
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
-              FixFlow
+              Sevara
             </h1>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
               The simplest way to manage maintenance requests across all your
@@ -77,7 +77,7 @@ export default function AuthLayout({
         </div>
 
         <p className="text-xs text-muted/50">
-          &copy; {new Date().getFullYear()} FixFlow
+          &copy; {new Date().getFullYear()} Sevara
         </p>
       </div>
 

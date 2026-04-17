@@ -55,7 +55,7 @@ export default function Home() {
               <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
               <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
               <span className="ml-3 flex-1 rounded-md bg-surface-secondary px-3 py-1 text-center text-xs text-muted">
-                fixflow.app/dashboard
+                sevara.app/dashboard
               </span>
             </div>
             {/* Mock dashboard content */}
@@ -269,9 +269,9 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-8">
-          <span className="text-sm font-semibold text-foreground">FixFlow</span>
+          <span className="text-sm font-semibold text-foreground">Sevara</span>
           <p className="text-xs text-muted">
-            &copy; {new Date().getFullYear()} FixFlow. All rights reserved.
+            &copy; {new Date().getFullYear()} Sevara. All rights reserved.
           </p>
         </div>
       </footer>

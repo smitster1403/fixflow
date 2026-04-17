@@ -1,4 +1,4 @@
-# FixFlow
+# Sevara
 
 Tenant maintenance request tracker for small landlords (5–20 units).
 
