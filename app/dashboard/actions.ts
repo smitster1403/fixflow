@@ -334,14 +334,14 @@ export async function createProperty(formData: FormData) {
 
   if (!name || !address) return { error: "Name and address are required" };
 
-  const { error } = await supabase.from("properties").insert({
+  const { data, error } = await supabase.from("properties").insert({
     landlord_id: landlordId,
     name,
     address,
-  });
+  }).select().single();
 
-  if (error) return { error: "Failed to create property" };
-  return { success: true };
+  if (error || !data) return { error: "Failed to create property" };
+  return { success: true, property: data };
 }
 
 export async function createUnit(propertyId: string, formData: FormData) {
@@ -361,13 +361,13 @@ export async function createUnit(propertyId: string, formData: FormData) {
   const label = (formData.get("label") as string)?.trim();
   if (!label) return { error: "Unit label is required" };
 
-  const { error } = await supabase.from("units").insert({
+  const { data, error } = await supabase.from("units").insert({
     property_id: propertyId,
     label,
-  });
+  }).select().single();
 
-  if (error) return { error: "Failed to create unit" };
-  return { success: true };
+  if (error || !data) return { error: "Failed to create unit" };
+  return { success: true, unit: data };
 }
 
 // ============================================================

@@ -31,7 +31,7 @@ export default function Home() {
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/sign-up"
-              className="inline-flex h-11 items-center rounded-lg bg-primary px-5 text-sm font-semibold text-white shadow-[0_0_20px_rgba(109,95,245,0.35)] transition-all hover:bg-primary-dark hover:shadow-[0_0_30px_rgba(109,95,245,0.5)]"
+              className="inline-flex h-11 items-center rounded-lg bg-primary px-5 text-sm font-semibold text-white shadow-[0_0_20px_rgba(16,185,129,0.25)] transition-all hover:bg-primary-dark hover:shadow-[0_0_30px_rgba(16,185,129,0.35)]"
             >
               Get started free
             </Link>
@@ -258,7 +258,7 @@ export default function Home() {
           <div className="mt-10">
             <Link
               href="/sign-up"
-              className="inline-flex h-12 items-center rounded-lg bg-primary px-6 text-sm font-semibold text-white shadow-[0_0_24px_rgba(109,95,245,0.4)] transition-all hover:bg-primary-dark hover:shadow-[0_0_36px_rgba(109,95,245,0.55)]"
+              className="inline-flex h-12 items-center rounded-lg bg-primary px-6 text-sm font-semibold text-white shadow-[0_0_24px_rgba(16,185,129,0.3)] transition-all hover:bg-primary-dark hover:shadow-[0_0_36px_rgba(16,185,129,0.4)]"
             >
               Get started free
             </Link>

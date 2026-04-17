@@ -45,15 +45,15 @@ export function PropertiesContent({ properties: initialProperties }: { propertie
       const result = await createProperty(formData);
       if (result.error) {
         setError(result.error);
-      } else {
+      } else if (result.property) {
         setShowAddProperty(false);
         setError(null);
         setProperties((prev) => [
           {
-            id: crypto.randomUUID(),
-            name: formData.get("name") as string,
-            address: formData.get("address") as string,
-            created_at: new Date().toISOString(),
+            id: result.property.id,
+            name: result.property.name,
+            address: result.property.address,
+            created_at: result.property.created_at,
             unitCount: 0,
             openRequests: 0,
             units: [],
@@ -71,7 +71,7 @@ export function PropertiesContent({ properties: initialProperties }: { propertie
       const result = await createUnit(propertyId, formData);
       if (result.error) {
         setError(result.error);
-      } else {
+      } else if (result.unit) {
         setShowAddUnit(null);
         setError(null);
         setProperties((prev) =>
@@ -83,12 +83,12 @@ export function PropertiesContent({ properties: initialProperties }: { propertie
                   units: [
                     ...p.units,
                     {
-                      id: crypto.randomUUID(),
-                      label: formData.get("label") as string,
+                      id: result.unit.id,
+                      label: result.unit.label,
                       tenant_name: null,
                       tenant_email: null,
                       tenant_phone: null,
-                      token: "pending",
+                      token: result.unit.token,
                     },
                   ],
                 }
