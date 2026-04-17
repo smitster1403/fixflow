@@ -186,7 +186,7 @@ export function PropertiesContent({ properties: initialProperties }: { propertie
         <div
           className={`mb-4 rounded-lg border px-4 py-3 text-sm flex items-center justify-between ${
             toast.type === "success"
-              ? "border-emerald-400/20 bg-emerald-400/5 text-emerald-400"
+              ? "border-cyan-400/20 bg-cyan-400/5 text-cyan-400"
               : "border-red-400/20 bg-red-400/5 text-red-400"
           }`}
         >
@@ -372,7 +372,7 @@ export function PropertiesContent({ properties: initialProperties }: { propertie
                                     <button
                                       onClick={() => handleSendLink(unit.id)}
                                       disabled={isPending}
-                                      className="rounded-md px-2 py-1 text-xs text-emerald-400 hover:bg-emerald-400/10 transition-colors disabled:opacity-40"
+                                      className="rounded-md px-2 py-1 text-xs text-cyan-400 hover:bg-cyan-400/10 transition-colors disabled:opacity-40"
                                       title="Email portal link to tenant"
                                     >
                                       {isPending ? "..." : "Send Link"}
@@ -385,7 +385,7 @@ export function PropertiesContent({ properties: initialProperties }: { propertie
                                       title="Copy portal link"
                                     >
                                       {copiedToken === unit.token ? (
-                                        <span className="text-emerald-400">Copied!</span>
+                                        <span className="text-cyan-400">Copied!</span>
                                       ) : (
                                         "Copy Link"
                                       )}

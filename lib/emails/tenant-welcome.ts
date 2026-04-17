@@ -18,22 +18,22 @@ export function tenantWelcomeEmail({
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body style="margin:0;padding:0;background-color:#09090b;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#09090b;padding:40px 20px;">
+<body style="margin:0;padding:0;background-color:#050507;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#050507;padding:40px 20px;">
     <tr>
       <td align="center">
         <table width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;">
           <!-- Header -->
           <tr>
             <td style="padding-bottom:32px;">
-              <span style="font-size:18px;font-weight:600;color:#fafafa;letter-spacing:-0.02em;">Sevara</span>
+              <span style="font-size:18px;font-weight:600;color:#f5f5f7;letter-spacing:-0.02em;">Sevara</span>
             </td>
           </tr>
 
           <!-- Main card -->
           <tr>
-            <td style="background-color:#111113;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:32px;">
-              <h1 style="margin:0 0 8px;font-size:20px;font-weight:600;color:#fafafa;">
+            <td style="background-color:#0c0c10;border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:32px;">
+              <h1 style="margin:0 0 8px;font-size:20px;font-weight:600;color:#f5f5f7;">
                 Welcome, ${tenantName}!
               </h1>
               <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#a1a1aa;">
@@ -41,36 +41,36 @@ export function tenantWelcomeEmail({
               </p>
 
               <!-- Unit info -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#18181b;border-radius:8px;padding:16px;margin-bottom:24px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#141418;border-radius:8px;padding:16px;margin-bottom:24px;">
                 <tr>
                   <td style="padding:12px 16px;">
-                    <p style="margin:0 0 2px;font-size:12px;color:#a1a1aa;text-transform:uppercase;letter-spacing:0.05em;">Your Unit</p>
-                    <p style="margin:0;font-size:14px;font-weight:500;color:#fafafa;">${unitLabel} · ${propertyName}</p>
+                    <p style="margin:0 0 2px;font-size:12px;color:#9394a1;text-transform:uppercase;letter-spacing:0.05em;">Your Unit</p>
+                    <p style="margin:0;font-size:14px;font-weight:500;color:#f5f5f7;">${unitLabel} · ${propertyName}</p>
                   </td>
                 </tr>
               </table>
 
               <!-- CTA Button -->
-              <a href="${portalUrl}" style="display:block;text-align:center;background-color:#6d5ff5;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 24px;border-radius:8px;margin-bottom:24px;">
+              <a href="${portalUrl}" style="display:block;text-align:center;background-color:#6366f1;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:12px 24px;border-radius:8px;margin-bottom:24px;">
                 Open Your Portal
               </a>
 
               <!-- What you can do -->
-              <h2 style="margin:0 0 12px;font-size:14px;font-weight:600;color:#fafafa;">What you can do:</h2>
+              <h2 style="margin:0 0 12px;font-size:14px;font-weight:600;color:#f5f5f7;">What you can do:</h2>
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td style="padding:6px 0;font-size:13px;color:#a1a1aa;">
-                    <span style="color:#6d5ff5;margin-right:8px;">✓</span> Submit maintenance requests anytime
+                  <td style="padding:6px 0;font-size:13px;color:#9394a1;">
+                    <span style="color:#6366f1;margin-right:8px;">✓</span> Submit maintenance requests anytime
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding:6px 0;font-size:13px;color:#a1a1aa;">
-                    <span style="color:#6d5ff5;margin-right:8px;">✓</span> Track the status of your requests
+                  <td style="padding:6px 0;font-size:13px;color:#9394a1;">
+                    <span style="color:#6366f1;margin-right:8px;">✓</span> Track the status of your requests
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding:6px 0;font-size:13px;color:#a1a1aa;">
-                    <span style="color:#6d5ff5;margin-right:8px;">✓</span> No account or login required
+                  <td style="padding:6px 0;font-size:13px;color:#9394a1;">
+                    <span style="color:#6366f1;margin-right:8px;">✓</span> No account or login required
                   </td>
                 </tr>
               </table>
@@ -80,11 +80,11 @@ export function tenantWelcomeEmail({
           <!-- Footer -->
           <tr>
             <td style="padding-top:24px;">
-              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#18181b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:16px;margin-bottom:16px;">
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#141418;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:16px;margin-bottom:16px;">
                 <tr>
                   <td style="padding:12px 16px;">
                     <p style="margin:0 0 4px;font-size:12px;font-weight:600;color:#facc15;">⚠ Important — Save this email</p>
-                    <p style="margin:0;font-size:12px;line-height:1.5;color:#a1a1aa;">
+                    <p style="margin:0;font-size:12px;line-height:1.5;color:#9394a1;">
                       This email contains your personal maintenance portal link. Please star or save it for future use — you'll need it whenever you want to submit or check on a repair request.
                     </p>
                   </td>

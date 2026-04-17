@@ -14,7 +14,7 @@ const CATEGORIES = [
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
   open: { label: "Open", color: "text-amber-400", bg: "bg-amber-400/10 border-amber-400/20" },
   in_progress: { label: "In Progress", color: "text-blue-400", bg: "bg-blue-400/10 border-blue-400/20" },
-  resolved: { label: "Resolved", color: "text-emerald-400", bg: "bg-emerald-400/10 border-emerald-400/20" },
+  resolved: { label: "Resolved", color: "text-cyan-400", bg: "bg-cyan-400/10 border-cyan-400/20" },
 };
 
 interface UnitData {
@@ -139,9 +139,9 @@ export function TenantPortal({
         {tab === "submit" && (
           <>
             {formState?.success ? (
-              <div className="rounded-xl border border-emerald-400/20 bg-emerald-400/5 p-8 text-center">
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-400/10">
-                  <svg className="h-7 w-7 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <div className="rounded-xl border border-cyan-400/20 bg-cyan-400/5 p-8 text-center">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-cyan-400/10">
+                  <svg className="h-7 w-7 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
                 </div>

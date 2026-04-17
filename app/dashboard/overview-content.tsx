@@ -5,7 +5,7 @@ import Link from "next/link";
 const STATUS_CONFIG: Record<string, { label: string; color: string; dot: string }> = {
   open: { label: "Open", color: "text-amber-400", dot: "bg-amber-400" },
   in_progress: { label: "In Progress", color: "text-blue-400", dot: "bg-blue-400" },
-  resolved: { label: "Resolved", color: "text-emerald-400", dot: "bg-emerald-400" },
+  resolved: { label: "Resolved", color: "text-cyan-400", dot: "bg-cyan-400" },
 };
 
 const CATEGORY_ICONS: Record<string, string> = {
@@ -65,7 +65,7 @@ export function OverviewContent({ stats }: { stats: Stats | null }) {
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-8">
         <StatCard label="Open" value={stats.open} color="text-amber-400" bgColor="bg-amber-400/10 border-amber-400/20" />
         <StatCard label="In Progress" value={stats.inProgress} color="text-blue-400" bgColor="bg-blue-400/10 border-blue-400/20" />
-        <StatCard label="Resolved" value={stats.resolved} color="text-emerald-400" bgColor="bg-emerald-400/10 border-emerald-400/20" />
+        <StatCard label="Resolved" value={stats.resolved} color="text-cyan-400" bgColor="bg-cyan-400/10 border-cyan-400/20" />
         <StatCard label="Total Units" value={stats.totalUnits} color="text-primary-light" bgColor="bg-primary/10 border-primary/20" />
       </div>
 

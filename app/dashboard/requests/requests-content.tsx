@@ -6,7 +6,7 @@ import { updateRequestStatus, getRequestStatusHistory, saveRequestNote } from ".
 const STATUS_OPTIONS = [
   { value: "open", label: "Open", color: "text-amber-400", bg: "bg-amber-400/10 border-amber-400/20", dot: "bg-amber-400" },
   { value: "in_progress", label: "In Progress", color: "text-blue-400", bg: "bg-blue-400/10 border-blue-400/20", dot: "bg-blue-400" },
-  { value: "resolved", label: "Resolved", color: "text-emerald-400", bg: "bg-emerald-400/10 border-emerald-400/20", dot: "bg-emerald-400" },
+  { value: "resolved", label: "Resolved", color: "text-cyan-400", bg: "bg-cyan-400/10 border-cyan-400/20", dot: "bg-cyan-400" },
 ];
 
 const CATEGORY_ICONS: Record<string, string> = {
