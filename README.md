@@ -1,6 +1,11 @@
 # Sevara
+MY LATEST INITIATIVE!
 
 Tenant maintenance request tracker for small landlords (5–20 units).
+
+The idea is simple, I want to create a centralized application catered to smaller portfolio real estate owners that can easily manage their properties with tenants.
+
+The applicatoin I have developed is in the first stage of implementation where I am targeting landlords local to Calgary to use my application. From this I hope to get feeback from them and iteratively streamline the application to be seamless when onboarding new users and evetually expand its capabilities to commercial property owners.
 
 ## Tech Stack
 
@@ -9,7 +14,6 @@ Tenant maintenance request tracker for small landlords (5–20 units).
 - **Supabase** (Postgres, Realtime, Storage)
 - **Clerk** (landlord authentication)
 - **Tailwind CSS v4**
-- **Resend** (email notifications)
 
 ## Getting Started
 
